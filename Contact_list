@@ -1,0 +1,72 @@
+#I put all my functions at the top so the code will work the best.
+#This is the add contact function.
+def addContact():
+    First = input("What is the first name? ")
+    Last = input("What is the last name? ")
+    Phone = input("What is the phone number? ")
+    row = len(contact_list) + 1
+    contact_list[row] = {"first_name": First, "last_name": Last, "phone": Phone}
+    print(contact_list)
+#This is the delete contact function.
+def deleteContact(contactToDelete, contact_list):
+    if contactToDelete in contact_list:
+        del contact_list[contactToDelete]
+        print(f"Contact {contactToDelete} has been deleted.")
+    else:
+        ("Your contact isn't in the list.")
+    print(contact_list)
+#This is the search contact function.
+def searchContact(target, contact_list):
+    found = False
+    for keys, value in contact_list.items():
+        if target.lower()==value["first_name"].lower():
+            found = True    
+    return found
+#This is solely for the user so that they don't have to remember.
+def option():
+    print("Here are the options")
+    print("1. add a contact")
+    print("2. delete a contact")
+    print("3. search for a contact")
+    print("4. quit")
+
+
+#This is the beginning list.      
+contact_list = {
+    1 : {"first_name": "Bart", "last_name": "Simpson", "phone": "555-1234"},
+    2 : {"first_name": "Lisa", "last_name": "Simpson", "phone": "555-1235"},
+}
+ 
+#This is the way I could make it so it would present a list of options for the user to do.
+print("Welcome to Erik's contact list.")
+print("1. add a contact")
+print("2. delete a contact")
+print("3. search for a contact")
+print("4. quit")   
+
+#I am using a flag so that the user can quit.
+flag = False 
+#I am using inputs at the beginning of 3 of the 4 options because this requires the code to know what you want to do with what.
+while flag == False:
+    userInput = input("What option are you choosing? ")
+    if userInput == "1":
+        addContact()
+        option()
+    elif userInput == "2":
+        contactToDelete = int(input("What contact row would you like to delete? "))
+        deleteContact(contactToDelete, contact_list)
+        option()
+    elif userInput == "3":
+        target = input("Who are you searching for? ")
+        searchContact(target, contact_list)
+        results = searchContact(target, contact_list)
+        if results == True:
+            print(f"The contact {target} was found.")
+        else:
+            print("The contact was not found in the list.")
+        option()
+    elif userInput == "4":
+        flag = True
+    else:
+        print("Not an option.  Try again")
+        option()
